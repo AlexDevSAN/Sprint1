@@ -1,32 +1,48 @@
 import java.util.Random;
 
+// обычный монстр, задаёт пример на сложение
 public class Monster {
-    // Скрытые поля каждого конкретного монстра (Инкапсуляция)
     private int x;
     private int y;
     private String image;
 
-    // Массив доступных скинов для монстров, скрытый внутри класса
+    // скины для обычных монстров
     private static final String[] SKINS = {
-            "\uD83D\uDC7E", //  (Пиксельный пришелец)
-            "\uD83D\uDC7B", //  (Привидение)
-            "\uD83D\uDC7D", //  (Инопланетянин)
-            "\uD83D\uDC80", //  (Череп)
-            "\uD83D\uDC79" ,// (Монстр Они)
+            "👾", // 👾
+            "👻", // 👻
+            "👽", // 👽
+            "💀", // 💀
+            "👹", // 👹
     };
 
-    // Конструктор: при создании монстр сам выбирает случайные координаты и свой скин
     public Monster(int sizeBoard) {
         Random random = new Random();
-        this.x = random.nextInt(sizeBoard); // Индексы от 0 до sizeBoard - 1 для массива
-        this.y = random.nextInt(sizeBoard);
+        // координаты как у героя, от 1. в нижнем ряду монстров нет, там старт
+        this.x = 1 + random.nextInt(sizeBoard);
+        this.y = 1 + random.nextInt(sizeBoard - 1);
 
-        // Случайный скин из набора
         this.image = SKINS[random.nextInt(SKINS.length)];
     }
 
-    // Геттеры для безопасного чтения данных из класса Main [image_7mJlMZ.png]
     public int getX() { return this.x; }
     public int getY() { return this.y; }
     public String getImage() { return this.image; }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean taskMonster(int difficultGame) {
+        int maxNumber = 100;
+        if (difficultGame == 1) maxNumber = 10;
+        else if (difficultGame == 3) maxNumber = 1000;
+
+        int a = Main.random.nextInt(maxNumber);
+        int b = Main.random.nextInt(maxNumber);
+        int trueAnswer = a + b;
+
+        System.out.println("Реши пример: " + a + " + " + b + " = ?");
+        int ans = Main.scanner.nextInt();
+        return trueAnswer == ans;
+    }
 }

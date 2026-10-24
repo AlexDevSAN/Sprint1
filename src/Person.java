@@ -32,4 +32,9 @@ public class Person {
             this.live--;
         }
     }
+
+    // для сундука
+    public void upLive() {
+        this.live++;
+    }
 }
